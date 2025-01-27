@@ -1,32 +1,32 @@
-DROP TABLE users, remotecontrollers, wallbrackets, television_wallbracket;
+DROP TABLE users, remoteControllers, wallBrackets, televisionWallBracket;
 DROP TABLE televisions CASCADE;
 DROP TABLE products CASCADE;
-DROP TABLE cimodules CASCADE;
+DROP TABLE ciModules CASCADE;
 
 -- create tables
 
 CREATE TABLE users (
-    username VARCHAR(50) PRIMARY KEY NOT NULL,
-    password VARCHAR(255),
+    username VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
     address VARCHAR(200),
-    role VARCHAR(50),
+    role VARCHAR(50) NOT NULL,
     payScale INT,
     vacationDays INT
 );
 
 CREATE TABLE products (
-    id SERIAL PRIMARY KEY NOT NULL,
-    name VARCHAR(100),
-    brand VARCHAR(50),
-    price REAL,
-    currentStock INT,
-    sold INT,
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    brand VARCHAR(50) NOT NULL,
+    price REAL NOT NULL,
+    currentStock INT DEFAULT 0,
+    sold INT DEFAULT 0,
     dateSold DATE,
     productType VARCHAR(100)
 );
 
 CREATE TABLE televisions (
-    product_id INT PRIMARY KEY,
+    productID INT PRIMARY KEY,
     height REAL,
     width REAL,
     screenQuality VARCHAR(100),
@@ -35,44 +35,44 @@ CREATE TABLE televisions (
     smartTV BOOLEAN,
     voiceControl BOOLEAN,
     HDR BOOLEAN,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+    FOREIGN KEY (productID) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE remoteControllers (
-    product_id INT PRIMARY KEY,
+    productID INT PRIMARY KEY,
     smart BOOLEAN,
 	batteryType VARCHAR(100),
-	television_id INT UNIQUE,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-	FOREIGN KEY (television_id) REFERENCES televisions (product_id) ON DELETE CASCADE
+	televisionId INT UNIQUE,
+    FOREIGN KEY (productID) REFERENCES products(id) ON DELETE CASCADE,
+	FOREIGN KEY (televisionID) REFERENCES televisions (productID) ON DELETE CASCADE
 );
 
 CREATE TABLE ciModules (
-    product_id INT PRIMARY KEY,
+    productID INT PRIMARY KEY,
     provider VARCHAR(100),
 	encodingType VARCHAR(100),
-	television_id INT,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-	FOREIGN KEY (television_id) REFERENCES televisions (product_id) ON DELETE CASCADE
+	televisionID INT,
+    FOREIGN KEY (productID) REFERENCES products(id) ON DELETE CASCADE,
+	FOREIGN KEY (televisionID) REFERENCES televisions (productID) ON DELETE CASCADE
 );
 
 CREATE TABLE wallBrackets (
-    product_id INT PRIMARY KEY,
+    productID INT PRIMARY KEY,
     adjustable BOOLEAN,
 	attachmentMethod VARCHAR(100),
 	height REAL,
 	width REAL,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+    FOREIGN KEY (productID) REFERENCES products(id) ON DELETE CASCADE
 );
 
 -- junction table for wallBrackets to televisions (many-to-many)
 
-CREATE TABLE television_wallBracket (
-    television_id INT,
-    wallbracket_id INT,
-    PRIMARY KEY (television_id, wallbracket_id),
-    FOREIGN KEY (television_id) REFERENCES televisions (product_id) ON DELETE CASCADE,
-    FOREIGN KEY (wallbracket_id) REFERENCES wallBrackets (product_id) ON DELETE CASCADE
+CREATE TABLE televisionWallBracket (
+    televisionID INT,
+    wallbracketID INT,
+    PRIMARY KEY (televisionID, wallbracketID),
+    FOREIGN KEY (televisionID) REFERENCES televisions (productID) ON DELETE CASCADE,
+    FOREIGN KEY (wallBracketID) REFERENCES wallBrackets (productID) ON DELETE CASCADE
 );
 
 -- add televisions (used from frontend tech-it-easy inventory)
@@ -88,7 +88,7 @@ VALUES
 	('LED TV', 'Brandt', 109, 'television'),
 	('HD TV', 'Toshiba', 161, 'television');
 
-INSERT INTO televisions (product_id, height, width, screenQuality, screenType, wifi, smartTV, voiceControl, HDR)
+INSERT INTO televisions (productID, height, width, screenQuality, screenType, wifi, smartTV, voiceControl, HDR)
 VALUES
 	(1, NULL, NULL, 'Ultra HD/4K', 'LED', TRUE, TRUE, FALSE, TRUE),
 	(2, NULL, NULL, 'HD ready', 'LED', TRUE, TRUE, FALSE, FALSE),
@@ -107,13 +107,13 @@ VALUES
 	('Wall of Mount', 'TV Mountains', 50, 'wallBracket'),
 	('Toshibase', 'Toshiba', 30, 'wallBracket');
 
-INSERT INTO wallBrackets (product_id, adjustable, attachmentMethod, height, width)
+INSERT INTO wallBrackets (productID, adjustable, attachmentMethod, height, width)
 VALUES 
     (9, TRUE, 'schrews', 50.0, 30.0),
     (10, FALSE, 'sticky', 40.0, 20.0),
     (11, TRUE, 'magnetic', 60.0, 35.0);
 
-INSERT INTO television_wallbracket (television_id, wallbracket_id)
+INSERT INTO televisionWallBracket (televisionID, wallBracketID)
 VALUES 
     (1, 9),
 	(5, 9),
@@ -123,20 +123,20 @@ VALUES
 -- fancy select statement
 
 SELECT 
-    tv.name AS television_name,
-    tv.brand AS television_brand,
-    tv.price AS television_price,
-	p.name AS wallbracket_name,
-    p.brand AS wallbracket_brand,
-    p.price AS wallbracket_price
+    tv.name AS televisionName,
+    tv.brand AS televisionBrand,
+    tv.price AS televisionPrice,
+	p.name AS wallbracketName,
+    p.brand AS wallbracketBrand,
+    p.price AS wallbracketPrice
 FROM 
     wallBrackets wb
 JOIN 
-    television_wallbracket twb ON wb.product_id = twb.wallbracket_id
+    televisionWallBracket twb ON wb.productID = twb.wallBracketID
 JOIN 
-    products p ON wb.product_id = p.id
+    products p ON wb.productID = p.id
 JOIN
-    products tv ON tv.id = twb.television_id
+    products tv ON tv.id = twb.televisionID
 WHERE 
     p.productType = 'wallBracket' AND tv.productType = 'television';
 
