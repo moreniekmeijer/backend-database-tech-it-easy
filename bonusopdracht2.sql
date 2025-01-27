@@ -79,24 +79,24 @@ VALUES
 
 INSERT INTO Material (title, materialType, filePath, link, instrument, category, styleId, uploadedBy)
 VALUES
-    ('Maracatu Arrangement', 'PDF', 'path/to/maracatu_arrangement.pdf', NULL, 'Snare Drum', 'Sheet Music', (SELECT styleId FROM Styles WHERE name = 'Maracatu'), 1),
-    ('Surdo Rhythm for Maracatu', 'Video', 'path/to/maracatu_surdo_rhythm.mp4', NULL, 'Surdo', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Maracatu'), 1),
-    ('Snare Drum Rhythm for Maracatu', 'Video', 'path/to/maracatu_snare_rhythm.mp4', NULL, 'Snare Drum', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Maracatu'), 1),
-    ('Shaker Rhythm for Maracatu', 'Video', 'path/to/maracatu_shaker_rhythm.mp4', NULL, 'Shaker', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Maracatu'), 1),
-    ('Maracatu on YouTube', 'Link', NULL, 'https://www.youtube.com/watch?v=example', 'All', 'Video', (SELECT styleId FROM Styles WHERE name = 'Maracatu'), 1);
+    ('Maracatu Arrangement', 'PDF', 'path/to/maracatu_arrangement.pdf', NULL, 'Snare Drum', 'Sheet Music', 1, 1),
+    ('Surdo Rhythm for Maracatu', 'Video', 'path/to/maracatu_surdo_rhythm.mp4', NULL, 'Surdo', 'Rhythm', 1, 1),
+    ('Snare Drum Rhythm for Maracatu', 'Video', 'path/to/maracatu_snare_rhythm.mp4', NULL, 'Snare Drum', 'Rhythm', 1, 1),
+    ('Shaker Rhythm for Maracatu', 'Video', 'path/to/maracatu_shaker_rhythm.mp4', NULL, 'Shaker', 'Rhythm', 1, 1),
+    ('Maracatu on YouTube', 'Link', NULL, 'https://www.youtube.com/watch?v=example', 'All', 'Video', 1, 1);
 
 INSERT INTO Material (title, materialType, filePath, link, instrument, category, styleId, uploadedBy)
 VALUES
-	('Samba Arrangement', 'PDF', 'path/to/samba_arrangement.pdf', NULL, 'Snare Drum', 'Sheet Music', (SELECT styleId FROM Styles WHERE name = 'Samba'), 1),
-    ('Surdo Rhythm for Samba', 'Video', 'path/to/samba_surdo_rhythm.mp4', NULL, 'Surdo', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Samba'), 1),
-    ('Snare Drum Rhythm for Samba', 'Video', 'path/to/samba_snare_rhythm.mp4', NULL, 'Snare Drum', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Samba'), 1),
-    ('Shaker Rhythm for Samba', 'Video', 'path/to/samba_shaker_rhythm.mp4', NULL, 'Shaker', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Samba'), 1);
+	('Samba Arrangement', 'PDF', 'path/to/samba_arrangement.pdf', NULL, 'Snare Drum', 'Sheet Music', 2, 1),
+    ('Surdo Rhythm for Samba', 'Video', 'path/to/samba_surdo_rhythm.mp4', NULL, 'Surdo', 'Rhythm', 2, 1),
+    ('Snare Drum Rhythm for Samba', 'Video', 'path/to/samba_snare_rhythm.mp4', NULL, 'Snare Drum', 'Rhythm', 2, 1),
+    ('Shaker Rhythm for Samba', 'Video', 'path/to/samba_shaker_rhythm.mp4', NULL, 'Shaker', 'Rhythm', 2, 1);
 
 INSERT INTO Material (title, materialType, filePath, link, instrument, category, styleId, uploadedBy)
 VALUES
-    ('Makru Drum Rhythms', 'Video', 'path/to/makru_drum_rhythms.mp4', NULL, 'Djembe', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Makru'), 1),
-    ('Makru Drum Arrangement', 'PDF', 'path/to/makru_drum_arrangement.pdf', NULL, 'Djembe', 'Sheet Music', (SELECT styleId FROM Styles WHERE name = 'Makru'), 1),
-    ('Makru Traditional Drumming', 'Video', 'path/to/makru_traditional_drumming.mp4', NULL, 'Djembe', 'Rhythm', (SELECT styleId FROM Styles WHERE name = 'Makru'), 1);
+    ('Makru Drum Rhythms', 'Video', 'path/to/makru_drum_rhythms.mp4', NULL, 'Djembe', 'Rhythm', 3, 1),
+    ('Makru Drum Arrangement', 'PDF', 'path/to/makru_drum_arrangement.pdf', NULL, 'Djembe', 'Sheet Music', 3, 1),
+    ('Makru Traditional Drumming', 'Video', 'path/to/makru_traditional_drumming.mp4', NULL, 'Djembe', 'Rhythm', 3, 1);
 
 INSERT INTO Material (title, materialType, filePath, link, instrument, category, styleId, uploadedBy)
 VALUES
